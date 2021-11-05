@@ -1,19 +1,16 @@
-int val=0;
+int trig = 2;
+int echo = 3;
 void setup() {
-  //pinMode(2, INPUT);
-  DDRD = 0;
-  //pinMode(3, OUTPUT);
-  DDRD |= (1 << PD3);
-  //Serial.begin(9600);
+	pinMode(trig, OUTPUT);
+	pinMode(echo, INPUT);
+	Serial.begin(115200);
 }
 
 void loop() {
-  //val = digitalRead(2);
-  val = PORTD >> PD2 & HIGH;
-  if(val == HIGH) {
-    digitalWrite(3, HIGH);
-  } else {
-    digitalWrite(3, LOW);
-  }
-  //Serial.println(val);
+	digitalWrite(trig, HIGH);
+	delayMicroseconds(10);
+	digitalWrite(trig, LOW);
+	int d = pulseIn(echo, HIGH) * 340 / 2 / 10000;
+	Serial.println(d);
+	delay(100);
 }
